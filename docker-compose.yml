@@ -1,0 +1,31 @@
+version: '3.6'
+
+services:
+
+  # Backend API
+  face-recognition-brain-api:
+    container_name: backend
+    build: ./
+    command: npm start
+    working_dir: /usr/src/face-recognition-brain-boost-server
+    # environmental variables
+    environment: 
+      POSTGRES_URI: postgres://igor:secret@postgres:5432/face-recognition-brain-docker
+    # links to another service in docker container
+    links:
+      - postgres
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/face-recognition-brain-boost-server
+
+  # Postgres
+  postgres:
+    environment: 
+      POSTGRES_USER: igor
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: face-recognition-brain-docker
+      POSTGRES_HOST: postgres
+    image: postgres
+    ports: 
+      - "5432:5432"
