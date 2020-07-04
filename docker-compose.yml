@@ -1,7 +1,7 @@
 version: '3.6'
 
 services:
-
+  
   # Backend API
   face-recognition-brain-api:
     container_name: backend
