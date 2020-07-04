@@ -11,14 +11,16 @@ services:
     # environmental variables
     environment: 
       POSTGRES_URI: postgres://igor:secret@postgres:5432/face-recognition-brain-docker
+      REDIS_URI: redis://redis:6379
     # links to another service in docker container
     links:
       - postgres
+      - redis
     ports: 
       - "3000:3000"
     volumes:
       - ./:/usr/src/face-recognition-brain-boost-server
-
+  
   # Postgres
   postgres:
     environment: 
@@ -29,3 +31,9 @@ services:
     build: postgres
     ports: 
       - "5432:5432"
+
+  # Redis
+  redis:
+    image: redis
+    ports:
+        - 6379:6379
